@@ -66,8 +66,8 @@
                         <ViewCell>
                             <Grid 
                                 BackgroundColor="White"
-                                HeightRequest="250"
-                                Margin="12, 12"
+                                HeightRequest="220"
+                                Margin="12, 8"
                                 RowSpacing="0">
 
                                 <pancakeview:PancakeView

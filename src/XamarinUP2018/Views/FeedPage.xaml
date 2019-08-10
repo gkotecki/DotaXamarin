@@ -37,7 +37,7 @@
                 Grid.Row="1"
                 IsVisible="{Binding ShowNoData}"
                 HorizontalOptions="CenterAndExpand"
-                Text="No items found!\nCheck your network connection."
+                Text="No items found! Try checking your network connection."
                 FontSize="25"
                 Margin="0, 50" />
 
