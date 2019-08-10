@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:controls="clr-namespace:Uteis"
+             NavigationPage.HasNavigationBar="False"
+             mc:Ignorable="d"
+             x:Class="XamarinUP2018.Views.PicturePage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="NameStyle" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="32" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="Margin" Value="24, 24, 0, 12" />
+            </Style>
+            <Style x:Key="DescriptionTitleStyle" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="Margin" Value="24, 0, 0, 0" />
+            </Style>
+            <Style x:Key="DescriptionStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="Margin" Value="24, 0, 24, 0" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="70" />
+            </Grid.ColumnDefinitions>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70" />
+                <RowDefinition Height="230" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- IMAGE -->
+            <Image
+                Grid.ColumnSpan="2"
+                Grid.RowSpan="3"
+                Aspect="AspectFill"
+                Source="{Binding HeroObj.ImgUrl}"/>
+
+            <!-- PANEL-->
+            <ScrollView
+                x:Name="Parallax"
+                Grid.ColumnSpan="2"
+                Grid.RowSpan="4">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="300" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <pancakeview:PancakeView
+                        Grid.Row="1"
+                        CornerRadius="24, 24, 0, 0"
+                        Margin="0, 20, 0, 0"
+                        BackgroundColor="White">
+                        <StackLayout>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="70" />
+                                </Grid.ColumnDefinitions>
+                            
+                                <!-- PICTURE DETAILS -->
+                                <Label Grid.Column="0" Text="{Binding HeroObj.LocalizedName}" Style="{StaticResource NameStyle}"/>
+
+                                <!-- FAVORITE -->
+                                <controls:ToggleButton
+                                    Grid.Column="1"
+                                    Command="{Binding FavoritePicture}"
+                                    Checked="{Binding WasFavorited}"
+                                    Animate="True"
+                                    CheckedImage="ic_heart_black_48dp.png"
+                                    UnCheckedImage="ic_heart_outline_black_48dp.png"
+                                    Margin="10, 10, 20, 10" />
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                            
+                                <Label Grid.Column="0" Grid.Row="0" Text="In-game Icon" Style="{StaticResource DescriptionTitleStyle}"/>
+                                <Image Grid.Column="1" Grid.Row="0" Source="{Binding HeroObj.IconUrl}" HeightRequest="40" Aspect="AspectFit"/>
+                                <Label Grid.Column="0" Grid.Row="1" Text="Attack Type" Style="{StaticResource DescriptionTitleStyle}"/>
+                                <Label Grid.Column="1" Grid.Row="1" Text="{Binding HeroObj.AttackType}" Style="{StaticResource DescriptionStyle}"/>
+                                <Label Grid.Column="0" Grid.Row="2" Text="Primary Attribute" Style="{StaticResource DescriptionTitleStyle}"/>
+                                <Label Grid.Column="1" Grid.Row="2" Text="{Binding HeroObj.PrimaryAttr}" Style="{StaticResource DescriptionStyle}"/>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Column="0" Grid.Row="0" Text="Base Health and Regen" Style="{StaticResource DescriptionTitleStyle}"/>
+                                <Label Grid.Column="1" Grid.Row="0" Text="{Binding HeroObj.BaseHealth}" Style="{StaticResource DescriptionStyle}"/>
+                                <Label Grid.Column="2" Grid.Row="0" Text="{Binding HeroObj.BaseHealthRegen}" Style="{StaticResource DescriptionStyle}"/>
+                                <Label Grid.Column="0" Grid.Row="1" Text="Base Mana and Regen" Style="{StaticResource DescriptionTitleStyle}"/>
+                                <Label Grid.Column="1" Grid.Row="1" Text="{Binding HeroObj.BaseMana}" Style="{StaticResource DescriptionStyle}"/>
+                                <Label Grid.Column="2" Grid.Row="1" Text="{Binding HeroObj.BaseManaRegen}" Style="{StaticResource DescriptionStyle}"/>
+                                <Label Grid.Column="0" Grid.Row="2" Text="Base Attack Range and Rate" Style="{StaticResource DescriptionTitleStyle}"/>
+                                <Label Grid.Column="1" Grid.Row="2" Text="{Binding HeroObj.AttackRange}" Style="{StaticResource DescriptionStyle}"/>
+                                <Label Grid.Column="2" Grid.Row="2" Text="{Binding HeroObj.AttackRate}" Style="{StaticResource DescriptionStyle}"/>
+                            </Grid>
+
+                            <Grid Margin="0,12">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Column="0" Grid.Row="0" Text="Base STR-AGI-INT" Style="{StaticResource DescriptionTitleStyle}"/>
+                                <Label Grid.Column="1" Grid.Row="0" Text="{Binding HeroObj.BaseStr}" Style="{StaticResource DescriptionStyle}"/>
+                                <Label Grid.Column="2" Grid.Row="0" Text="{Binding HeroObj.BaseAgi}" Style="{StaticResource DescriptionStyle}"/>
+                                <Label Grid.Column="3" Grid.Row="0" Text="{Binding HeroObj.BaseInt}" Style="{StaticResource DescriptionStyle}"/>
+                                <Label Grid.Column="0" Grid.Row="1" Text="STR-AGI-INT Gain" Style="{StaticResource DescriptionTitleStyle}"/>
+                                <Label Grid.Column="1" Grid.Row="1" Text="{Binding HeroObj.StrGain}" Style="{StaticResource DescriptionStyle}"/>
+                                <Label Grid.Column="2" Grid.Row="1" Text="{Binding HeroObj.AgiGain}" Style="{StaticResource DescriptionStyle}"/>
+                                <Label Grid.Column="3" Grid.Row="1" Text="{Binding HeroObj.IntGain}" Style="{StaticResource DescriptionStyle}"/>
+                            </Grid>
+                            
+                        </StackLayout>
+                    </pancakeview:PancakeView>
+                </Grid>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:c="clr-namespace:Prism.Converters"
+             x:Class="XamarinUP2018.Views.FeedPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <c:ItemTappedEventArgsConverter x:Key="itemTappedEventArgsConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
+            <!--TITLE-->
+            <Label 
+                Grid.Row="0"
+                Text="Dota heroes"
+                FontAttributes="Bold"
+                FontSize="32"
+                TextColor="DarkRed"
+                HorizontalOptions="CenterAndExpand"
+                Margin="20, 12, 20, 12"/>
+
+            <!--NO ITENS-->
+            <Label 
+                Grid.Row="1"
+                IsVisible="{Binding ShowNoData}"
+                HorizontalOptions="CenterAndExpand"
+                Text="No items found!\nCheck your network connection."
+                FontSize="25"
+                Margin="0, 50" />
+
+            <!--PICTURE LIST-->
+            <ListView
+                Grid.Row="1"
+                HasUnevenRows="True"
+                SeparatorColor="Transparent"
+                SeparatorVisibility="None"
+                IsRefreshing="{Binding IsBusy}"
+                ItemsSource="{Binding Items}"
+                CachingStrategy="RecycleElement"
+                IsPullToRefreshEnabled="True"
+                RefreshCommand="{Binding RefreshCommand}"
+                SelectionMode="None">
+
+                <ListView.Behaviors>
+                    <b:EventToCommandBehavior 
+                        EventName="ItemTapped" 
+                        Command="{Binding GoPicture}"                  
+                        EventArgsParameterPath="Item" />
+                </ListView.Behaviors>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid 
+                                BackgroundColor="White"
+                                HeightRequest="100"
+                                Margin="12, 8"
+                                RowSpacing="0">
+
+                                <pancakeview:PancakeView
+                                    Grid.Row="0"
+                                    CornerRadius="12"
+                                    HasShadow="True"
+                                    BorderThickness="0">
+
+                                    <Image Aspect="AspectFill" Source="{Binding ImgUrl}"/>
+
+                                </pancakeview:PancakeView>
+
+                            </Grid>
+                            
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
